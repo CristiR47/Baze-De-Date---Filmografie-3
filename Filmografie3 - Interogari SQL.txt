@@ -1,0 +1,15 @@
+--1.Care sunt filmele lansate în 2016 regizate de cineaști români?
+/*
+SELECT NumeFilm
+FROM Filme
+INNER JOIN Cineasti ON Filme.CodRegizor=Cineasti.CodCineast OR Filme.CodProducator=Cineasti.CodCineast
+WHERE Filme.AnLansare=2016 AND Cineasti.Tara='Romania'
+GROUP BY NumeFilm
+
+--2.Câte premii a câştigat filmul Forrest Gump lansat în 1994?
+
+SELECT COUNT(Premii_Obtinute.CodFilm)
+FROM Premii_Obtinute
+INNER JOIN Filme ON Premii_Obtinute.CodFilm=Filme.CodFilm
+WHERE Filme.NumeFilm='Forrest Gump'  
+*/

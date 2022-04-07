@@ -1,0 +1,24 @@
+#1.Care sunt filmele lansate în 2016 regizate de cineaști români?
+
+rezultat = filme %>% 
+  inner_join(cineasti) %>% 
+  filter(anlansare==2016) %>% 
+  filter(tara=="Romania") %>% 
+  distinct(numefilm)
+
+#2.Câte premii a câştigat filmul Forrest Gump lansat în 1994?
+
+rezultat = premii_obtinute %>% 
+  inner_join(filme) %>% 
+  filter(numefilm=="Forrest Gump") %>% 
+  count(codpremiu)
+  
+#3.Care este filmul (sau filmele) cu cele mai mari încasări în 2016?
+
+rezultat = incasari %>% 
+  inner_join(filme) %>% 
+  order(incasari_usd) %>% 
+  head(1)
+
+
+  

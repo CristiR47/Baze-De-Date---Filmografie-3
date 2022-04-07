@@ -1,0 +1,27 @@
+library(tidyverse)
+library(lubridate)
+library(RPostgres)
+
+rm(list = ls()) #Stergere Global Environment
+rm(con, drv, temp, i, tables) #Stergere Tabele Suplimentare
+
+#Realizarea Conexiunii
+
+con <- dbConnect(RPostgres::Postgres(), dbname="filmografie", user="postgres", 
+                 host = 'localhost', password="1234") 
+
+#Importarea Tabelelor
+tables <- dbGetQuery(con, 
+                     "select table_name from information_schema.tables where table_schema = 'public'")
+
+for (i in 1:nrow(tables)) {
+  # extragrea tabelei din BD PostgreSQL
+  temp <- dbGetQuery(con, paste("select * from ", tables[i,1], sep=""))
+  # crearea dataframe-ului
+  assign(tables[i,1], temp)
+}
+
+#Salvarea bazei de date sub format RData
+
+setwd('C:\\Users\\curel\\Desktop\\Facultate\\Baze de date\\Tema')
+save.image(file = 'filmografie3-echipa2209.RData')
